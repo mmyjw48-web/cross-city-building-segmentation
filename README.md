@@ -50,7 +50,7 @@ bash scripts/run_all.sh
 On Google Colab:
 
 ```python
-!git clone https://github.com/<your-user>/cross-city-building-segmentation
+!git clone https://github.com/mmyjw48-web/cross-city-building-segmentation
 %cd cross-city-building-segmentation
 !pip install -q -r requirements.txt
 !bash scripts/download_data.sh /content/data

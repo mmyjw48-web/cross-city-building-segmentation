@@ -1,0 +1,130 @@
+{
+  "config": {
+    "data_root": "/content/data",
+    "train_city": "khartoum",
+    "epochs": 8,
+    "batch_size": 4,
+    "lr": 0.001,
+    "seed": 0,
+    "split_seed": 42,
+    "norm": "global",
+    "aug_brightness": false,
+    "no_pretrained": false,
+    "no_monitor": false,
+    "max_images": null,
+    "num_workers": 2,
+    "mask_cache": "/content/mask_cache",
+    "out_dir": "/content/drive/MyDrive/ccbs_runs",
+    "results_dir": "results/runs",
+    "device": null,
+    "run_name": "khartoum_global_seed0",
+    "source": "khartoum",
+    "target": "paris"
+  },
+  "n_train": 810,
+  "n_val": 202,
+  "n_target": 1148,
+  "best_epoch": 8,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.7769712075775053,
+      "val_loss": 0.5531042657866336,
+      "val_iou": 0.5783973339039858,
+      "other_city_iou": 0.005154527965735419,
+      "seconds": 228.16051363945007
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.6007860357378736,
+      "val_loss": 0.506678842081882,
+      "val_iou": 0.5979226310817705,
+      "other_city_iou": 0.015842412083468725,
+      "seconds": 237.20173978805542
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5458334141307407,
+      "val_loss": 0.6228947167349334,
+      "val_iou": 0.5200745505205875,
+      "other_city_iou": 0.013331791872975007,
+      "seconds": 237.85228776931763
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.5015689876344469,
+      "val_loss": 0.46321796566838086,
+      "val_iou": 0.6322487513750128,
+      "other_city_iou": 0.025455130495294367,
+      "seconds": 237.27547955513
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.45950619997801606,
+      "val_loss": 0.488582976973883,
+      "val_iou": 0.6253392107479285,
+      "other_city_iou": 0.041122556420330955,
+      "seconds": 237.5809826850891
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.4464686262754746,
+      "val_loss": 0.393853899570975,
+      "val_iou": 0.6734419875980909,
+      "other_city_iou": 0.019465432116744934,
+      "seconds": 238.23719239234924
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.42357948466583534,
+      "val_loss": 0.3901338020321166,
+      "val_iou": 0.6806251139508593,
+      "other_city_iou": 0.026375724895818874,
+      "seconds": 237.80409908294678
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.4110201731140231,
+      "val_loss": 0.3647479684931217,
+      "val_iou": 0.7009740591941669,
+      "other_city_iou": 0.04240969741224628,
+      "seconds": 237.64239358901978
+    }
+  ],
+  "metrics": {
+    "source_val": {
+      "iou": 0.7009740591941669,
+      "precision": 0.7920485555724599,
+      "recall": 0.8590788850871215,
+      "pred_frac": 0.17097592126076513,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "loss": 0.3647479684931217
+    },
+    "target_all": {
+      "iou": 0.04240969741224628,
+      "precision": 0.7239153442326085,
+      "recall": 0.043106912178686695,
+      "pred_frac": 0.004126000453580191,
+      "true_frac": 0.0692899325814898,
+      "n_eval_images": 1148,
+      "loss": 1.0238082968156934
+    },
+    "target_val": {
+      "iou": 0.04172693861631209,
+      "precision": 0.7015777910924705,
+      "recall": 0.04248092905229006,
+      "pred_frac": 0.004398801064571975,
+      "true_frac": 0.07264674297821762,
+      "n_eval_images": 229,
+      "loss": 1.2185421192985004
+    }
+  },
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "smp": "0.6.0",
+    "cuda_available": true,
+    "gpu": "Tesla T4"
+  }
+}

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ccbs"
+version = "0.1.0"
+description = "Cross-city generalization of U-Net building segmentation on SpaceNet-2 (Paris and Khartoum)"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.0",
+    "torchvision",
+    "segmentation-models-pytorch>=0.3",
+    "rasterio>=1.3",
+    "numpy",
+    "matplotlib",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,67 @@
+{
+  "_provenance": "Preliminary numbers from the original Google Colab notebook (T4 GPU). Every entry is a SINGLE, UNSEEDED run, so differences of a few IoU points are within run-to-run noise. They are kept for the record and as a sanity check for the reproducible scripts; they are NOT the headline results. Fields set to null were not recorded in a form that could be verified when this file was written.",
+  "setup": {
+    "dataset": "SpaceNet-2 PS-RGB, AOI_3_Paris (1148 images) and AOI_5_Khartoum (1012 images), 650x650, 3-band uint16",
+    "model": "smp.Unet(resnet34, imagenet), 1 output channel",
+    "loss": "BCEWithLogits + Dice",
+    "optimizer": "Adam lr=1e-3 (cosine annealing in the 8-epoch runs)",
+    "batch_size": 4,
+    "paris_split": {
+      "train": 919,
+      "val": 229,
+      "split_seed": 42
+    },
+    "epoch_time_seconds": "155-170 (T4)"
+  },
+  "runs": [
+    {
+      "name": "untrained_sanity_check",
+      "description": "ImageNet encoder + random decoder, no training, Paris batch",
+      "paris_iou": 0.114,
+      "note": "The model predicted ~52% of pixels as building (pred_frac 0.522), i.e. IoU 0.114 is what 'predict everything' gives when ~10% of pixels are buildings."
+    },
+    {
+      "name": "baseline_5ep",
+      "description": "Paris-trained, global normalization (clip(x/2000)), flips only, 5 epochs, best epoch by Paris val IoU",
+      "paris_val_iou": 0.501,
+      "khartoum_all_iou": 0.36
+    },
+    {
+      "name": "zscore",
+      "description": "Paris-trained, per-image per-channel z-score normalization",
+      "paris_val_iou": 0.649,
+      "khartoum_iou": 0.2568,
+      "epochs": null,
+      "note": "Evaluated with the notebook's `evaluate`. An earlier `evaluate_full` helper clamped inputs to [0,1], which broke z-scored inputs (it reported Paris 0.138); that bug is fixed in this repo (metrics.evaluate never rescales inputs)."
+    },
+    {
+      "name": "transfer_matrix_8ep",
+      "description": "2x2 matrix: train city x evaluation city, 8 epochs",
+      "paris_to_paris": null,
+      "paris_to_khartoum": null,
+      "khartoum_to_khartoum": null,
+      "khartoum_to_paris": null,
+      "note": "Superseded: the reproducible 3-seed results are in results/runs/*.json and results/summary.md."
+    },
+    {
+      "name": "few_shot_paris_to_khartoum",
+      "description": "Fine-tune the Paris model on N Khartoum images (10 epochs, lr 3e-4) vs an ImageNet-only control",
+      "n_images": [
+        10,
+        25,
+        50,
+        100,
+        200
+      ],
+      "paris_pretrained_iou": null,
+      "imagenet_only_iou": null,
+      "known_flaw": "the ImageNet-only control used lr=1e-3 while the Paris-pretrained model used 3e-4; scripts/few_shot.py uses the same lr for both by default"
+    }
+  ],
+  "qualitative_observations": [
+    "Brightness matching at test time and brightness augmentation at training time did not improve Khartoum IoU; the brightness-augmented model produced near-empty predictions on Khartoum.",
+    "Per-image z-score normalization did not improve transfer to Khartoum.",
+    "The baseline Paris model predicted coarse blobs rather than individual footprints on Khartoum.",
+    "Picking the epoch with the best same-city validation IoU does not necessarily pick the epoch that transfers best."
+  ]
+}

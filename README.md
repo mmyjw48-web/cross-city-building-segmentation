@@ -5,6 +5,8 @@ This repo trains a U-Net on **SpaceNet-2** satellite tiles of **Paris** and
 **Khartoum**, measures in-city vs. cross-city IoU over several seeds, and provides
 tools to diagnose *why* performance drops (calibration, normalization, few-shot adaptation).
 
+**Report:** a short write-up of the results and their limits is in [`report/report.md`](report/report.md).
+
 > **Status.** Three experiments are done and summarized below: two-city transfer
 > (2 cities x 3 seeds), a threshold-sweep diagnosis of the 6 trained models, and few-shot
 > adaptation Paris -> Khartoum (source-trained vs. ImageNet-only init, 3 seeds). Raw results are in

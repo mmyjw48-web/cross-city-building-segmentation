@@ -20,3 +20,38 @@
 | paris_global_seed1 | 8 | 0.653 | 0.313 | 0.349 | 0.753 | 0.352 / 0.163 |
 | paris_global_seed2 | 8 | 0.653 | 0.312 | 0.595 | 0.396 | 0.108 / 0.163 |
 
+## Threshold sweep on the other city
+
+IoU at the default threshold 0.5 vs. at the best threshold. The best threshold is an **oracle** (chosen with the evaluation labels): it diagnoses calibration shift, it is not a deployable result.
+
+| run | evaluated on | IoU @0.5 | best threshold | IoU @best |
+|---|---|---|---|---|
+| khartoum_global_seed0 | Paris (all) | 0.042 | 0.01 | 0.225 |
+| khartoum_global_seed1 | Paris (all) | 0.127 | 0.01 | 0.265 |
+| khartoum_global_seed2 | Paris (all) | 0.256 | 0.5 | 0.256 |
+| paris_global_seed0 | Khartoum (all) | 0.267 | 0.2 | 0.271 |
+| paris_global_seed1 | Khartoum (all) | 0.313 | 0.7 | 0.315 |
+| paris_global_seed2 | Khartoum (all) | 0.312 | 0.2 | 0.334 |
+
+## Few-shot adaptation (IoU on the target city's val split)
+
+**Khartoum, init = imagenet**, 10 epochs, lr=0.0003
+
+| N images | IoU |
+|---|---|
+| 0 | 0.095 ± 0.085 (n=3) |
+| 10 | 0.434 ± 0.042 (n=3) |
+| 50 | 0.572 ± 0.057 (n=3) |
+| 200 | 0.657 ± 0.026 (n=3) |
+
+**Khartoum, init = source**, 10 epochs, lr=0.0003
+
+| N images | IoU |
+|---|---|
+| 0 | 0.269 (n=1) |
+| 10 | 0.521 ± 0.100 (n=3) |
+| 50 | 0.607 ± 0.021 (n=3) |
+| 200 | 0.649 ± 0.019 (n=3) |
+
+N = 0 with init = source is the unmodified source checkpoint (one model, evaluated once). N = 0 with init = imagenet is an ImageNet encoder with a *randomly initialised* decoder, so its seeds differ and the number is not a meaningful baseline.
+

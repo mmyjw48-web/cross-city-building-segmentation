@@ -55,6 +55,12 @@ def fmt(values):
 
 
 # --------------------------------------------------------------------------- #
+def dedupe_zero_shot(init, n, values):
+    """With init=source and N=0 nothing is trained, so every "seed" evaluates the same checkpoint
+    and returns the same number; count it once instead of reporting a fake std of 0."""
+    return values[:1] if (init == "source" and n == 0) else values
+
+
 def transfer_matrix(train_runs, out_png, which="global"):
     cells = defaultdict(list)  # (train_city, eval_city) -> [iou per seed]
     for r in train_runs:
@@ -147,8 +153,9 @@ def few_shot_plot(fewshot_runs, out_png):
             for row in d["rows"]:
                 by_n[row["n_images"]].append(row["iou"])
             ns = sorted(by_n)
-            mean = np.array([np.mean(by_n[n]) for n in ns])
-            sd = np.array([np.std(by_n[n], ddof=1) if len(by_n[n]) > 1 else 0 for n in ns])
+            vals = {n: dedupe_zero_shot(cfg["init"], n, by_n[n]) for n in ns}
+            mean = np.array([np.mean(vals[n]) for n in ns])
+            sd = np.array([np.std(vals[n], ddof=1) if len(vals[n]) > 1 else 0 for n in ns])
             colour = BLUE if cfg["init"] == "source" else ORANGE
             label = "source-trained init" if cfg["init"] == "source" else "ImageNet-only init"
             x = np.arange(len(ns))
@@ -253,8 +260,11 @@ def summary_md(train_runs, fewshot_runs, out_md, sweeps=()):
             for row in d["rows"]:
                 by_n[row["n_images"]].append(row["iou"])
             for n in sorted(by_n):
-                lines.append(f"| {n} | {fmt(by_n[n])} |")
+                lines.append(f"| {n} | {fmt(dedupe_zero_shot(cfg['init'], n, by_n[n]))} |")
             lines.append("")
+        lines += ["N = 0 with init = source is the unmodified source checkpoint (one model, evaluated once). "
+                  "N = 0 with init = imagenet is an ImageNet encoder with a *randomly initialised* decoder, "
+                  "so its seeds differ and the number is not a meaningful baseline.", ""]
     Path(out_md).write_text("\n".join(lines) + "\n")
     return out_md
 

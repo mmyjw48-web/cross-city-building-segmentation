@@ -1,0 +1,158 @@
+{
+  "config": {
+    "target_city": "khartoum",
+    "init_ckpt": "imagenet",
+    "n_images": [
+      0,
+      10,
+      50,
+      200
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "epochs": 10,
+    "lr": 0.0003,
+    "batch_size": 4,
+    "data_root": "/content/data",
+    "norm": "global",
+    "split_seed": 42,
+    "no_pretrained": false,
+    "max_images": null,
+    "num_workers": 2,
+    "out": "results/runs/fewshot_khartoum_imagenet.json",
+    "device": null,
+    "init": "imagenet"
+  },
+  "rows": [
+    {
+      "iou": 0.16620665980148705,
+      "precision": 0.17098413765529918,
+      "recall": 0.856083506672518,
+      "pred_frac": 0.7892489659616849,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 0,
+      "seed": 0
+    },
+    {
+      "iou": 0.0015739532680519302,
+      "precision": 0.1458560821139987,
+      "recall": 0.0015885956493351268,
+      "pred_frac": 0.0017168902689085476,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 0,
+      "seed": 1
+    },
+    {
+      "iou": 0.11772826589545951,
+      "precision": 0.131318159791125,
+      "recall": 0.5321855633136982,
+      "pred_frac": 0.6388398734548011,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 0,
+      "seed": 2
+    },
+    {
+      "iou": 0.3893805847440375,
+      "precision": 0.7122894199823148,
+      "recall": 0.4620521724186733,
+      "pred_frac": 0.10225586736188412,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 10,
+      "seed": 0
+    },
+    {
+      "iou": 0.47326535399001196,
+      "precision": 0.6994538833252119,
+      "recall": 0.5940737473493674,
+      "pred_frac": 0.13388594528091863,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 10,
+      "seed": 1
+    },
+    {
+      "iou": 0.44006732781190916,
+      "precision": 0.6508638203273875,
+      "recall": 0.5760501886810404,
+      "pred_frac": 0.1395159646142129,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 10,
+      "seed": 2
+    },
+    {
+      "iou": 0.5547923128863423,
+      "precision": 0.6651219833769404,
+      "recall": 0.7698272673538391,
+      "pred_frac": 0.18245077040248403,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 50,
+      "seed": 0
+    },
+    {
+      "iou": 0.6358959730125135,
+      "precision": 0.690766826035586,
+      "recall": 0.8889538786946816,
+      "pred_frac": 0.2028623586619017,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 50,
+      "seed": 1
+    },
+    {
+      "iou": 0.5250560363588568,
+      "precision": 0.8480010222585933,
+      "recall": 0.5796043852732455,
+      "pred_frac": 0.10774298435760736,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 50,
+      "seed": 2
+    },
+    {
+      "iou": 0.6757437882506272,
+      "precision": 0.760743165970856,
+      "recall": 0.8581137009907984,
+      "pred_frac": 0.17781176401663834,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 200,
+      "seed": 0
+    },
+    {
+      "iou": 0.6687895716924048,
+      "precision": 0.7634846952814011,
+      "recall": 0.8435581896372305,
+      "pred_frac": 0.17416802390298203,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 200,
+      "seed": 1
+    },
+    {
+      "iou": 0.6274084768418184,
+      "precision": 0.8316018119846214,
+      "recall": 0.7187215685085219,
+      "pred_frac": 0.1362382213369266,
+      "true_frac": 0.15763538578709943,
+      "n_eval_images": 202,
+      "n_images": 200,
+      "seed": 2
+    }
+  ],
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "smp": "0.6.0",
+    "cuda_available": true,
+    "gpu": "NVIDIA A100-SXM4-80GB"
+  }
+}

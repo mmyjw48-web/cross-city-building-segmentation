@@ -8,7 +8,13 @@ set -euo pipefail
 DATA="${DATA:-data}"
 OUT="${OUT:-runs}"
 mkdir -p results/sweeps
-for CKPT_DIR in "$OUT"/*_global_seed*/; do
+shopt -s nullglob
+CKPTS=("$OUT"/*_global_seed*/)
+if [ ${#CKPTS[@]} -eq 0 ]; then
+  echo "ERROR: no checkpoints found in $OUT (is Google Drive mounted? does the folder exist?)" >&2
+  exit 1
+fi
+for CKPT_DIR in "${CKPTS[@]}"; do
   RUN=$(basename "$CKPT_DIR")
   SRC=${RUN%%_*}
   TGT=$([ "$SRC" = paris ] && echo khartoum || echo paris)
